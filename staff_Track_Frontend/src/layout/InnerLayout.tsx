@@ -20,11 +20,8 @@ import {
   DepartDesigICon,
   Logout,
   EmpProfile,
-} from "../common/icons"; import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "../common/icons";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { useGetCompanyByNameQuery } from "@/store/services/Organization.service";
@@ -98,24 +95,35 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
   const [greeting, setGreeting] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
+  // const checkUserRole = useMemo(() => {
+  //   const decodedToken: any = jwtDecode(sessionStorage.getItem("token") ?? "");
+  //   return decodedToken?.role ?? "";
+  // }, []);
+
   const checkUserRole = useMemo(() => {
-    const decodedToken: any = jwtDecode(sessionStorage.getItem("token") ?? "");
-    return decodedToken?.role ?? "";
+    const token = sessionStorage.getItem("token");
+    if (!token) return ""; // no token = no role
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.role ?? "";
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return "";
+    }
   }, []);
 
   const handleToggleCollapse = () => {
     setIsCollapsed((prev) => !prev);
   };
 
-
   useEffect(() => {
     // Check if the current route is '/verify'
-    if (
-      location.pathname === "/verify" ||
-      location.pathname === "/forgot-password"
-    ) {
-      setGreeting(""); // If it is, don't show any greeti``ng
-      return; // Exit the useEffect early
+    if (location.pathname === "/verify" || location.pathname === "/forgot-password") {
+      setGreeting("");
+      // If it is, don't show any greeti``ng
+      return;
+      // Exit the useEffect early
     }
 
     // If the route is not '/verify', calculate and set the greeting
@@ -128,7 +136,8 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
     } else {
       setGreeting("Good Evening");
     }
-  }, [location.pathname]); // Include location.pathname in the dependencies array
+  }, [location.pathname]);
+  // Include location.pathname in the dependencies array
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -136,15 +145,11 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="flex w-full sm:w-full  md:w-full lg:w-4/5 h-fit relative">
-      <div className="h-80 bg-[rgb(66,43,114)]  w-full top-0 left-0 -z-10 pt-7 fixed flex">
-        {" "}
-      </div>
+      <div className="h-80 bg-[rgb(66,43,114)]  w-full top-0 left-0 -z-10 pt-7 fixed flex"> </div>
 
       <div className="lg:pt-20 grid grid-cols-1 gap-3 w-full">
         {greeting && ( // Render the greeting only if it's not empty
-          <div className="text-white text-2xl font-semibold h-fit">
-            Hello, {greeting}
-          </div>
+          <div className="text-white text-2xl font-semibold h-fit">Hello, {greeting}</div>
         )}
         <div className="text-center">
           <div onClick={toggleSidebar} className="absolute right-0 top-0 block lg:hidden">
@@ -159,7 +164,6 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
               tabIndex={-1}
               aria-labelledby="drawer-navigation-label"
             >
-
               <button
                 type="button"
                 onClick={toggleSidebar}
@@ -187,11 +191,7 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                   "Loading"
                 ) : (
                   <img
-                    src={
-                      checkUserRole === "Company"
-                        ? getCmpData?.data?.logo
-                        : getEmpData?.data?.company?.logo
-                    }
+                    src={checkUserRole === "Company" ? getCmpData?.data?.logo : getEmpData?.data?.company?.logo}
                     // alt="Default"
                     className="h-40 rounded-full w-40 border"
                   />
@@ -203,9 +203,7 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                       key={item.label}
                     >
                       {item.icon}
-                      <span onClick={() => navigate(item.path)}>
-                        {item.label}
-                      </span>
+                      <span onClick={() => navigate(item.path)}>{item.label}</span>
                     </div>
                   ))}
                 {checkUserRole === "Employee" &&
@@ -215,9 +213,7 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                       key={item.label}
                     >
                       {item.icon}
-                      <span onClick={() => navigate(item.path)}>
-                        {item.label}
-                      </span>
+                      <span onClick={() => navigate(item.path)}>{item.label}</span>
                     </div>
                   ))}
                 {checkUserRole === "Company" && (
@@ -227,11 +223,7 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                         onClick={handleToggleCollapse}
                         className="flex justify-center items-center gap-2 pb-1"
                       >
-                        {isCollapsed ? (
-                          <IoMdArrowDropdown />
-                        ) : (
-                          <IoMdArrowDropup />
-                        )}
+                        {isCollapsed ? <IoMdArrowDropdown /> : <IoMdArrowDropup />}
                         Additional
                       </CollapsibleTrigger>
                       {/* <hr className="h-[1px] mx-3  bg-gray-600  rounded dark:bg-gray-400" /> */}
@@ -239,20 +231,14 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                       <CollapsibleContent className="text-sm pl-3 flex items-center gap-3">
                         &nbsp; &nbsp;&nbsp;
                         <MikeForNotice />{" "}
-                        <span
-                          className="text-base"
-                          onClick={() => navigate("/notice")}
-                        >
+                        <span className="text-base" onClick={() => navigate("/notice")}>
                           Notice
                         </span>
                       </CollapsibleContent>
                       <CollapsibleContent className="text-sm pl-3 flex items-center gap-3">
                         &nbsp; &nbsp;&nbsp;
                         <DepartDesigICon />
-                        <span
-                          className="text-base"
-                          onClick={() => navigate("/depart-desig")}
-                        >
+                        <span className="text-base" onClick={() => navigate("/depart-desig")}>
                           Depart-desig
                         </span>
                       </CollapsibleContent>
@@ -274,7 +260,6 @@ const InnerLayout = ({ children }: { children: ReactNode }) => {
                   logout
                 </div>
               </div>
-
 
               {/* <div className="py-4 overflow-y-auto">
                 <ul className="space-y-2 font-medium">

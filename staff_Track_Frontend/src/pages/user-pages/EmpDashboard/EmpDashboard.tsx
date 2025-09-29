@@ -176,9 +176,9 @@ const UserDashboard = () => {
         <Loading />
       ) : (
         <>
-          <h1 className="font-semibold text-white text-xl">
+          {/* <h1 className="font-semibold text-white text-xl">
             Welcome, Hello Good morning
-          </h1>
+          </h1> */}
 
           <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 ">
             <div className="bg-white rounded-xl h-24  w-full flex items-center mt-2 order-2 lg:order-1 md:order-1 sm:order-1">
