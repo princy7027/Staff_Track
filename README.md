@@ -17,12 +17,12 @@
 
 ## 📁 Project Structure
 
-
+```
 Staff-Track/
 ├── staff_Track_Backend      # Node.js/Express REST API
 ├── staff_Track_Frontend     # React + TypeScript web interface
 └── HRMS-app          # Flutter mobile application for employees
-
+```
 
 ---
 
@@ -43,14 +43,14 @@ Staff-Track/
 
 ## 🧰 Tech Stack
 
-### 🖥 Backend – HRMS-Backend
+### 🖥 Backend – staff_Track_Backend
 - *Runtime*: Node.js + Express  
 - *Database*: MongoDB with Mongoose ODM  
 - *Authentication*: JWT (JSON Web Tokens)  
 - *File Storage*: Cloudinary  
 - *Email Services*: Nodemailer  
 
-### 🌐 Frontend – HRMS-Frontend
+### 🌐 Frontend – staff_Track_Frontend
 - *Framework*: React with TypeScript  
 - *Build Tool*: Vite  
 - *UI Libraries*: Tailwind CSS, Material Tailwind, Radix UI  
@@ -70,27 +70,27 @@ Staff-Track/
 ## 🛠 Getting Started
 
 ### ✅ Backend Setup
-bash
+```bash
 cd staff_Track_Backend
 npm install
 npm run dev
-
+```
 > Server runs on the port defined in .env
 
 ### ✅ Frontend Setup
-bash
+```bash
 cd staff_Track_Frontend
 npm install
 npm run dev
-
+```
 > Runs on http://localhost:5173 by default
 
 ### ✅ Mobile App Setup
-bash
+```bash
 cd HRMS-app
 flutter pub get
 flutter run
-
+```
 > Launches on connected device or emulator
 
 ---
