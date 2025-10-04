@@ -19,8 +19,8 @@
 
 
 Staff-Track/
-├── HRMS-Backend      # Node.js/Express REST API
-├── HRMS-Frontend     # React + TypeScript web interface
+├── staff_Track_Backend      # Node.js/Express REST API
+├── staff_Track_Frontend     # React + TypeScript web interface
 └── HRMS-app          # Flutter mobile application for employees
 
 
@@ -71,7 +71,7 @@ Staff-Track/
 
 ### ✅ Backend Setup
 bash
-cd HRMS-Backend
+cd staff_Track_Backend
 npm install
 npm run dev
 
@@ -79,7 +79,7 @@ npm run dev
 
 ### ✅ Frontend Setup
 bash
-cd HRMS-Frontend
+cd staff_Track_Frontend
 npm install
 npm run dev
 
